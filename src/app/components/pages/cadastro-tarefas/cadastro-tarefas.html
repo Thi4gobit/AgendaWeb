@@ -1,0 +1,48 @@
+<h4 class="text-primary">Cadastro de Tarefas</h4>
+<p>Preencha os campos para criar uma nova tarefa em sua agenda.</p>
+<hr />
+<form>
+    <div class="row mb-3">
+        <div class="col-md-8">
+            <label for="nome" class="form-label">Nome da Tarefa</label>
+            <input type="text" class="form-control" id="nome" placeholder="Digite o nome da tarefa">
+        </div>
+        <div class="col-md-4">
+            <label for="prioridade" class="form-label">Prioridade</label>
+            <select class="form-select" id="prioridade">
+                <option value="">Selecione</option>
+                <option>Alta</option>
+                <option>Média</option>
+                <option>Baixa</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label for="data" class="form-label">Data</label>
+            <input type="date" class="form-control" id="data">
+        </div>
+        <div class="col-md-4">
+            <label for="hora" class="form-label">Hora</label>
+            <input type="time" class="form-control" id="hora">
+        </div>
+        <div class="col-md-4">
+            <label for="categoria" class="form-label">Categoria</label>
+            <select class="form-select" id="categoria">
+                <option value="">Selecione</option>
+                <option>Trabalho</option>
+                <option>Pessoal</option>
+                <option>Estudos</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div>
+        <button type="submit" class="btn btn-primary">Realizar Cadastro</button>
+    </div>
+</form>
+
+
