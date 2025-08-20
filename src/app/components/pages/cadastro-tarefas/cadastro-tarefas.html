@@ -11,9 +11,9 @@
             <label for="prioridade" class="form-label">Prioridade</label>
             <select class="form-select" id="prioridade">
                 <option value="">Selecione</option>
-                <option>Alta</option>
-                <option>Média</option>
-                <option>Baixa</option>
+                <option *ngFor="let item of categorias()">
+                    {{ item.nome }}
+                </option>
             </select>
         </div>
     </div>
@@ -32,9 +32,9 @@
             <label for="categoria" class="form-label">Categoria</label>
             <select class="form-select" id="categoria">
                 <option value="">Selecione</option>
-                <option>Trabalho</option>
-                <option>Pessoal</option>
-                <option>Estudos</option>
+                <option *ngFor="let item of categorias()">
+                    {{ item.nome }}
+                </option>
             </select>
         </div>
     </div>

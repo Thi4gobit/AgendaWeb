@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-consulta-tarefas',
@@ -26,7 +27,7 @@ export class ConsultaTarefas {
     console.log(this.formulario.value);
     const dataHoraInicio = this.formulario.value.dataHoraInicio;
     const dataHoraFim = this.formulario.value.dataHoraFim;
-    this.http.get('http://localhost:5182/api/Tarefas/' + dataHoraInicio + '/' + dataHoraFim)
+    this.http.get(`${environment.apiTarefas}/${dataHoraInicio}/${dataHoraFim}`)
       .subscribe(response => { //aguardando a resposta do backend
         console.table(response); //exibindo a resposta no console
       });
