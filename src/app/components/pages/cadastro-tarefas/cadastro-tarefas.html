@@ -1,20 +1,43 @@
 <h4 class="text-primary">Cadastro de Tarefas</h4>
 <p>Preencha os campos para criar uma nova tarefa em sua agenda.</p>
 <hr />
-<form>
+
+<form [formGroup]="formCadastro" (ngSubmit)="onSubmit()">
+
+    <div *ngIf="mensagemSucesso() != ''" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ mensagemSucesso() }}</strong>
+        <button type="button" (click)="mensagemSucesso.set('')" class="btn-close" aria-label="Close"></button>
+    </div>
+
+    <div *ngIf="mensagemErro() != ''" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{ mensagemErro() }}</strong>
+        <button type="button" (click)="mensagemErro.set('')" class="btn-close" aria-label="Close"></button>
+    </div>
+
+
     <div class="row mb-3">
         <div class="col-md-8">
             <label for="nome" class="form-label">Nome da Tarefa</label>
-            <input type="text" class="form-control" id="nome" placeholder="Digite o nome da tarefa">
+            <input type="text" class="form-control" id="nome" 
+                formControlName="nome"
+                placeholder="Digite o nome da tarefa">
+            <div class="text-danger" *ngIf="formCadastro.get('nome')?.touched && formCadastro.get('nome')?.invalid">
+                Por favor preencha o campo nome da tarefa com pelo menos 8 caracteres.
+            </div>
         </div>
         <div class="col-md-4">
             <label for="prioridade" class="form-label">Prioridade</label>
-            <select class="form-select" id="prioridade">
+            <select class="form-select" id="prioridade" formControlName="prioridade">
                 <option value="">Selecione</option>
-                <option *ngFor="let item of categorias()">
-                    {{ item.nome }}
-                </option>
+                <option value="1">Alta</option>
+                <option value="2">Média</option>
+                <option value="3">Baixa</option>
             </select>
+            <div class="text-danger"
+                *ngIf="formCadastro.get('prioridade')?.touched && formCadastro.get('prioridade')?.invalid">
+                Por favor, selecione a prioridade da tarefa.
+            </div>
+
         </div>
     </div>
 
@@ -22,26 +45,40 @@
     <div class="row mb-3">
         <div class="col-md-4">
             <label for="data" class="form-label">Data</label>
-            <input type="date" class="form-control" id="data">
+            <input type="date" class="form-control" id="data" formControlName="data">
+            <div class="text-danger" *ngIf="formCadastro.get('data')?.touched && formCadastro.get('data')?.invalid">
+                Por favor, selecione a data da tarefa.
+            </div>
         </div>
         <div class="col-md-4">
             <label for="hora" class="form-label">Hora</label>
-            <input type="time" class="form-control" id="hora">
+            <input type="time" class="form-control" id="hora" formControlName="hora">
+            <div class="text-danger" *ngIf="formCadastro.get('hora')?.touched && formCadastro.get('hora')?.invalid">
+                Por favor, selecione a hora da tarefa.
+            </div>
         </div>
         <div class="col-md-4">
             <label for="categoria" class="form-label">Categoria</label>
-            <select class="form-select" id="categoria">
+            <select class="form-select" id="categoria" formControlName="categoriaId">
+
                 <option value="">Selecione</option>
-                <option *ngFor="let item of categorias()">
+                <option *ngFor="let item of categorias()" value="{{ item.id }}">
                     {{ item.nome }}
                 </option>
             </select>
+            <div class="text-danger" *ngIf="formCadastro.get('categoriaId')?.touched && formCadastro.get('categoriaId')?.invalid">
+                Por favor, selecione a categoria da tarefa.
+            </div>
         </div>
     </div>
 
 
     <div>
-        <button type="submit" class="btn btn-primary">Realizar Cadastro</button>
+        <button type="submit" class="btn btn-primary"
+            [ngClass]="{'btn-secondary': formCadastro.invalid, 'btn-primary': formCadastro.valid}"
+            [disabled]="formCadastro.invalid">
+            Realizar Cadastro
+        </button>
     </div>
 </form>
 
