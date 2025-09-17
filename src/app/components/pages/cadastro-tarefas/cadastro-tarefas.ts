@@ -4,6 +4,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { min } from 'rxjs';
+import { Navbar } from '../../shared/navbar/navbar';
 
 
 @Component({
@@ -11,7 +12,8 @@ import { min } from 'rxjs';
   imports: [
     CommonModule, //funções comuns do Angular
     FormsModule, //para formulários reativos
-    ReactiveFormsModule //para formulários reativos
+    ReactiveFormsModule, //para formulários reativos
+    Navbar
   ],
   templateUrl: './cadastro-tarefas.html',
   styleUrl: './cadastro-tarefas.css'

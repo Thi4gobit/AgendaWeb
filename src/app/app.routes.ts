@@ -3,26 +3,41 @@ import { CadastroTarefas } from './components/pages/cadastro-tarefas/cadastro-ta
 import { ConsultaTarefas } from './components/pages/consulta-tarefas/consulta-tarefas';
 import { EdicaoTarefas } from './components/pages/edicao-tarefas/edicao-tarefas';
 import { Dashboard } from './components/pages/dashboard/dashboard';
+import { AutenticarUsuario } from './components/pages/autenticar-usuario/autenticar-usuario';
+import { CriarUsuario } from './components/pages/criar-usuario/criar-usuario';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
     {
+        path: 'pages/autenticar-usuario',
+        component: AutenticarUsuario
+    },
+    {
+        path: 'pages/criar-usuario',
+        component: CriarUsuario
+    },
+    {
         path: 'pages/dashboard',
-        component: Dashboard
+        component: Dashboard,
+        canActivate: [authGuard]
     },
     {
         path: 'pages/cadastro-tarefas',
-        component: CadastroTarefas
+        component: CadastroTarefas,
+        canActivate: [authGuard]
     },
     {
         path: 'pages/consulta-tarefas',
-        component: ConsultaTarefas
+        component: ConsultaTarefas,
+        canActivate: [authGuard]
     },
     {
         path: 'pages/edicao-tarefas',
-        component: EdicaoTarefas
+        component: EdicaoTarefas,
+        canActivate: [authGuard]
     },
     {
         path: '', pathMatch: 'full',
-        redirectTo: 'pages/dashboard'
+        redirectTo: '/pages/autenticar-usuario'
     }
 ];

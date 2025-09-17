@@ -1,87 +1,96 @@
-<h4 class="text-primary">Consulta de Tarefas</h4>
-<p>Pesquise tarefas em sua agenda por período de datas.</p>
-<hr />
+<app-navbar/>
+
+<div class="container mt-3">
+    <div class="card shadow">
+        <div class="card-body">
+        <h4 class="text-primary">Consulta de Tarefas</h4>
+            <p>Pesquise tarefas em sua agenda por período de datas.</p>
+            <hr />
 
 
-<div *ngIf="mensagemSucesso() != ''" class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>{{ mensagemSucesso() }}</strong>
-    <button type="button" (click)="mensagemSucesso.set('')" class="btn-close" aria-label="Close"></button>
-</div>
-
-
-<div *ngIf="mensagemErro() != ''" class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>{{ mensagemErro() }}</strong>
-    <button type="button" (click)="mensagemErro.set('')" class="btn-close" aria-label="Close"></button>
-</div>
-
-
-<form [formGroup]="formConsulta" (ngSubmit)="onSubmit()">
-    <div class="row mb-3">
-        <div class="col-md-3">
-            <input type="datetime-local" formControlName="dataHoraInicio" class="form-control" id="dataInicio">
-            <div class="text-danger"
-                *ngIf="formConsulta.get('dataHoraInicio')?.touched && formConsulta.get('dataHoraInicio')?.invalid">
-                Data e hora de início é obrigatório.
+            <div *ngIf="mensagemSucesso() != ''" class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ mensagemSucesso() }}</strong>
+                <button type="button" (click)="mensagemSucesso.set('')" class="btn-close" aria-label="Close"></button>
             </div>
-        </div>
-        <div class="col-md-3">
-            <input type="datetime-local" formControlName="dataHoraFim" class="form-control" id="dataFim">
-            <div class="text-danger"
-                *ngIf="formConsulta.get('dataHoraFim')?.touched && formConsulta.get('dataHoraFim')?.invalid">
-                Data e hora de fim é obrigatório.
+
+
+            <div *ngIf="mensagemErro() != ''" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{{ mensagemErro() }}</strong>
+                <button type="button" (click)="mensagemErro.set('')" class="btn-close" aria-label="Close"></button>
             </div>
-        </div>
-        <div class="col-md-6">
-            <button type="submit" class="btn btn-primary"
-                [ngClass]="{'btn-secondary': formConsulta.invalid, 'btn-primary': formConsulta.valid}"
-                [disabled]="formConsulta.invalid">
-                Pesquisar tarefas
-            </button>
+
+
+            <form [formGroup]="formConsulta" (ngSubmit)="onSubmit()">
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <input type="datetime-local" formControlName="dataHoraInicio" class="form-control" id="dataInicio">
+                        <div class="text-danger"
+                            *ngIf="formConsulta.get('dataHoraInicio')?.touched && formConsulta.get('dataHoraInicio')?.invalid">
+                            Data e hora de início é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="datetime-local" formControlName="dataHoraFim" class="form-control" id="dataFim">
+                        <div class="text-danger"
+                            *ngIf="formConsulta.get('dataHoraFim')?.touched && formConsulta.get('dataHoraFim')?.invalid">
+                            Data e hora de fim é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary"
+                            [ngClass]="{'btn-secondary': formConsulta.invalid, 'btn-primary': formConsulta.valid}"
+                            [disabled]="formConsulta.invalid">
+                            Pesquisar tarefas
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+
+            <div>
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Data e hora</th>
+                            <th>Prioridade</th>
+                            <th>Categoria</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let tarefa of tarefas()">
+                            <td> {{ tarefa.nome | uppercase }} </td>
+                            <td> {{ tarefa.dataHora | date : 'dd/MM/yyyy HH:mm' }} </td>
+                            <td>
+                                <span *ngIf="tarefa.prioridade == 1" class="badge bg-danger">ALTA</span>
+                                <span *ngIf="tarefa.prioridade == 2" class="badge bg-warning">MÉDIA</span>
+                                <span *ngIf="tarefa.prioridade == 3" class="badge bg-success">BAIXA</span>
+                            </td>
+                            <td> {{ tarefa.categoria.nome }} </td>
+                            <td class="text-center">
+                                <button class="btn btn-outline-primary btn-sm me-1">
+                                    Editar
+                                </button>
+                                <button class="btn btn-outline-danger btn-sm"
+                                    (click)="onDelete(tarefa.id)">
+                                    Excluir
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                Quantidade de tarefas: {{ tarefas().length }}
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </div>
-</form>
-
-
-<div>
-    <table class="table table-striped table-hover align-middle">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Data e hora</th>
-                <th>Prioridade</th>
-                <th>Categoria</th>
-                <th class="text-center">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let tarefa of tarefas()">
-                <td> {{ tarefa.nome | uppercase }} </td>
-                <td> {{ tarefa.dataHora | date : 'dd/MM/yyyy HH:mm' }} </td>
-                <td>
-                    <span *ngIf="tarefa.prioridade == 1" class="badge bg-danger">ALTA</span>
-                    <span *ngIf="tarefa.prioridade == 2" class="badge bg-warning">MÉDIA</span>
-                    <span *ngIf="tarefa.prioridade == 3" class="badge bg-success">BAIXA</span>
-                </td>
-                <td> {{ tarefa.categoria.nome }} </td>
-                <td class="text-center">
-                    <button class="btn btn-outline-primary btn-sm me-1">
-                        Editar
-                    </button>
-                    <button class="btn btn-outline-danger btn-sm"
-                        (click)="onDelete(tarefa.id)">
-                        Excluir
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5">
-                    Quantidade de tarefas: {{ tarefas().length }}
-                </td>
-            </tr>
-        </tfoot>
-    </table>
 </div>
+
 
 

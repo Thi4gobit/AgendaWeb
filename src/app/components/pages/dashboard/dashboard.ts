@@ -4,6 +4,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { Chart, ChartModule } from 'angular-highcharts';
+import { Navbar } from '../../shared/navbar/navbar';
 
 
 @Component({
@@ -12,7 +13,8 @@ import { Chart, ChartModule } from 'angular-highcharts';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ChartModule
+    ChartModule,
+    Navbar
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'

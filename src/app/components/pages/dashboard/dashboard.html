@@ -1,42 +1,48 @@
-<h4 class="text-primary">Dashboard de Tarefas</h4>
-<p>Pesquise tarefas em sua agenda por período de datas.</p>
-<hr />
+<app-navbar/>
+
+<div class="container mt-3">
+    <div class="card shadow">
+        <div class="card-body">
+            <h4 class="text-primary">Dashboard de Tarefas</h4>
+            <p>Pesquise tarefas em sua agenda por período de datas.</p>
+            <hr />
 
 
-<form [formGroup]="formDashboard" (ngSubmit)="onSubmit()">
-    <div class="row mb-3">
-        <div class="col-md-3">
-            <input type="datetime-local" formControlName="dataHoraInicio" class="form-control" id="dataInicio">
-            <div class="text-danger"
-                *ngIf="formDashboard.get('dataHoraInicio')?.touched && formDashboard.get('dataHoraInicio')?.invalid">
-                Data e hora de início é obrigatório.
+            <form [formGroup]="formDashboard" (ngSubmit)="onSubmit()">
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <input type="datetime-local" formControlName="dataHoraInicio" class="form-control" id="dataInicio">
+                        <div class="text-danger"
+                            *ngIf="formDashboard.get('dataHoraInicio')?.touched && formDashboard.get('dataHoraInicio')?.invalid">
+                            Data e hora de início é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="datetime-local" formControlName="dataHoraFim" class="form-control" id="dataFim">
+                        <div class="text-danger"
+                            *ngIf="formDashboard.get('dataHoraFim')?.touched && formDashboard.get('dataHoraFim')?.invalid">
+                            Data e hora de fim é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary"
+                            [ngClass]="{'btn-secondary': formDashboard.invalid, 'btn-primary': formDashboard.valid}"
+                            [disabled]="formDashboard.invalid">
+                            Pesquisar tarefas
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+
+            <div class="row mt-2">
+                <div class="col-md-6" *ngIf="graficoColunas() as grafico">
+                    <div [chart]="grafico"></div>
+                </div>
+                <div class="col-md-6" *ngIf="graficoDonut() as grafico">
+                    <div [chart]="grafico"></div>
+                </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <input type="datetime-local" formControlName="dataHoraFim" class="form-control" id="dataFim">
-            <div class="text-danger"
-                *ngIf="formDashboard.get('dataHoraFim')?.touched && formDashboard.get('dataHoraFim')?.invalid">
-                Data e hora de fim é obrigatório.
-            </div>
-        </div>
-        <div class="col-md-6">
-            <button type="submit" class="btn btn-primary"
-                [ngClass]="{'btn-secondary': formDashboard.invalid, 'btn-primary': formDashboard.valid}"
-                [disabled]="formDashboard.invalid">
-                Pesquisar tarefas
-            </button>
-        </div>
-    </div>
-</form>
-
-
-<div class="row mt-2">
-    <div class="col-md-6" *ngIf="graficoColunas() as grafico">
-        <div [chart]="grafico"></div>
-    </div>
-    <div class="col-md-6" *ngIf="graficoDonut() as grafico">
-        <div [chart]="grafico"></div>
     </div>
 </div>
-
-

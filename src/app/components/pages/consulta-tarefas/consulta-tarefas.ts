@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
+import { Navbar } from '../../shared/navbar/navbar';
 
 
 @Component({
@@ -10,7 +11,8 @@ import { environment } from '../../../../environments/environment';
   imports: [
     CommonModule, //Diretivas comuns do Angular
     FormsModule,  //Diretivas de formulários do Angular
-    ReactiveFormsModule //Diretivas de formulários reativos do Angular
+    ReactiveFormsModule, //Diretivas de formulários reativos do Angular
+    Navbar
   ],
   templateUrl: './consulta-tarefas.html',
   styleUrl: './consulta-tarefas.css'
