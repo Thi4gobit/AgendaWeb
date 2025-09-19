@@ -8,11 +8,17 @@
 
         <div class="text-center">
             <img src="https://www.cotiinformatica.com.br/imagens/logo-coti-informatica.svg" alt="COTI Informática">
-            <h5 class="mt-2">Agenda Web - Autenticação</h5>          
+            <h5 class="mt-2">Agenda Web - Autenticação</h5>
         </div>
 
 
-        <hr/>
+        <hr />
+
+
+        <div *ngIf="mensagemErro() != ''" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{ mensagemErro() }}</strong>
+            <button type="button" (click)="mensagemErro.set('')" class="btn-close" aria-label="Close"></button>
+        </div>
 
 
         <form [formGroup]="formAutenticacao" (ngSubmit)="onSubmit()">
@@ -20,17 +26,27 @@
 
             <div class="mb-3">
                 <label for="email" class="form-label">Email de acesso:</label>
-                <input type="email" formControlName="email" class="form-control" id="email" placeholder="Digite seu email" required>
+                <input type="email" formControlName="email" class="form-control" id="email"
+                    placeholder="Digite seu email" required>
+                <div class="text-danger"
+                    *ngIf="formAutenticacao.get('email')?.touched && formAutenticacao.get('email')?.invalid">
+                    <small>Por favor, preencha o campo com um endereço de email válido.</small>
+                </div>
             </div>
 
 
             <div class="mb-3">
                 <label for="senha" class="form-label">Senha de acesso:</label>
-                <input type="password" formControlName="senha" class="form-control" id="senha" placeholder="Digite sua senha" required>
+                <input type="password" formControlName="senha" class="form-control" id="senha"
+                    placeholder="Digite sua senha" required>
+                <div class="text-danger"
+                    *ngIf="formAutenticacao.get('senha')?.touched && formAutenticacao.get('senha')?.invalid">
+                    <small>Por favor, preencha o campo senha com pelo menos 8 caracteres.</small>
+                </div>
             </div>
 
 
-            <button type="submit" class="btn btn-primary w-100">
+            <button type="submit" class="btn btn-primary w-100" [disabled]="formAutenticacao.invalid">
                 Acessar
             </button>
 
@@ -47,5 +63,6 @@
 
     </div>
 </div>
+
 
 

@@ -1,7 +1,9 @@
-const baseUrl = 'http://localhost:5182'
+const baseUrlAgenda = 'http://localhost:8082'
+const baseUrlUsuarios = 'http://localhost:8081'
 
 export const environment = {
-    apiCategorias: `${baseUrl}/api/categorias`,
-    apiDashboard: `${baseUrl}/api/dashboard`,
-    apiTarefas: `${baseUrl}/api/tarefas`,
+    apiCategorias: `${baseUrlAgenda}/api/categorias`,
+    apiDashboard: `${baseUrlAgenda}/api/dashboard`,
+    apiTarefas: `${baseUrlAgenda}/api/tarefas`,
+    apiUsuarios: `${baseUrlUsuarios}/api/usuario`
 };
