@@ -6,6 +6,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
@@ -17,7 +18,21 @@
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/pages/consulta-tarefas">Consultar Tarefas</a>
                 </li>
+
+
+                <!-- Nome do usuário autenticado -->
+                <li class="nav-item d-flex align-items-center text-white ms-3">
+                    <span>Olá, {{ usuario() }}</span>
+                </li>
+
+
+                <!-- Botão de logout -->
+                <li class="nav-item ms-2">
+                    <button class="btn btn-sm btn-outline-light me-3 mt-1" (click)="logout()">Sair do sistema</button>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
+
+

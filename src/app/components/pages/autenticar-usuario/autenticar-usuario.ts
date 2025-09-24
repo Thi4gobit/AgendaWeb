@@ -3,6 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class AutenticarUsuario {
 
   //injeções de dependência
   private http = inject(HttpClient);
+  private auth = inject(AuthService);
 
 
   //Estrutura do formulário
@@ -37,7 +39,11 @@ export class AutenticarUsuario {
   onSubmit() {
     this.http.post(environment.apiUsuarios + '/autenticar', this.formAutenticacao.value)
       .subscribe({
-        next: (data) => { console.log(data); }, //salvar os dados no navegador
+        next: (data: any) => {
+          this.auth.signIn(data); //salvar os dados do usuário autenticado
+          //redirecionar para a página de dashboard
+          location.href = '/pages/dashboard';
+        },
         error: (e) => {
             this.mensagemErro.set(e.error.message);
          }
@@ -46,7 +52,6 @@ export class AutenticarUsuario {
 
 
 }
-
 
 
 
